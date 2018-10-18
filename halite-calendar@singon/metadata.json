@@ -3,5 +3,6 @@
  "name": "Halite Calendar",
  "description": "A modification of the built-in Cinnamon calendar applet",
  "icon": "x-office-calendar",
- "max-instances": -1
+ "max-instances": -1,
+ "multiversion": true
 }
