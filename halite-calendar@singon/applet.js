@@ -50,7 +50,7 @@ class CinnamonCalendarApplet extends Applet.TextApplet {
             this._date.style_class = 'datemenu-date-label';
             this.menu.addActor(this._date);
 
-            this.settings = new Settings.AppletSettings(this, "calendar@cinnamon.org", this.instance_id);
+            this.settings = new Settings.AppletSettings(this, "halite-calendar@singon", this.instance_id);
 
             // Calendar
             this._calendar = new Calendar.Calendar(this.settings);
