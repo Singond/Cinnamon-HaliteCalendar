@@ -9,19 +9,33 @@
         "description": "Show week numbers in calendar",
         "tooltip": "Check this to show week numbers in the calendar."
     },
-    "use-custom-format" : {
+    "use-custom-format-panel" : {
         "type" : "switch",
         "default" : false,
-        "description": "Use a custom date format",
-        "tooltip": "Check this to define a custom format for the date in the calendar applet."
+        "description": "Use a custom time format in panel",
+        "tooltip": "Check this to define a custom format for the time and date in the panel."
     },
-    "custom-format" : {
+    "custom-format-panel" : {
+        "type" : "entry",
+        "default" : "%A %B %e, %H:%M",
+        "description" : "Time format",
+        "indent": true,
+        "dependency" : "use-custom-format",
+        "tooltip" : "Set your custom format here."
+    },
+    "use-custom-format-cal" : {
+        "type" : "switch",
+        "default" : false,
+        "description": "Use a custom date format in calendar",
+        "tooltip": "Check this to define a custom format for the time and date in the calendar window."
+    },
+    "custom-format-cal" : {
         "type" : "entry",
         "default" : "%A %B %e, %H:%M",
         "description" : "Date format",
         "indent": true,
-        "dependency" : "use-custom-format",
-        "tooltip" : "Set your custom format here."
+        "dependency" : "use-custom-date-format",
+        "tooltip" : "Set your custom date format here."
     },
     "format-button" : {
         "type" : "button",
