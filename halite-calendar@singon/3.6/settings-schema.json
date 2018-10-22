@@ -44,7 +44,7 @@
     },
     "custom-format-calendar" : {
         "type" : "entry",
-        "default" : "%A %B %e, %H:%M",
+        "default" : "%A %B %-e, %Y",
         "description" : "Date format",
         "indent": true,
         "dependency" : "use-custom-format-calendar",
