@@ -7,7 +7,7 @@
         "type" : "switch",
         "default" : false,
         "description": "Use a custom time format in panel",
-        "tooltip": "Check this to define a custom format for the time and date in the panel."
+        "tooltip": "Check this to define a custom format for the time and date in the panel clock."
     },
     "custom-format-clock" : {
         "type" : "entry",
@@ -24,6 +24,14 @@
         "dependency" : "use-custom-format",
         "callback" : "on_custom_format_button_pressed",
         "tooltip" : "Click this button to know more about the syntax for date formats."
+    },
+    "capitalize-clock" : {
+        "type" : "switch",
+        "default" : true,
+        "description": "Capitalize the formatted time in panel",
+        "indent": true,
+        "dependency" : "use-custom-format-clock",
+        "tooltip": "Check this to capitalize the first letter of the formatted time in the panel clock."
     },
 
     "section2": {
@@ -50,6 +58,14 @@
         "dependency" : "use-custom-format-calendar",
         "tooltip" : "Set your custom date format here."
     },
+    "capitalize-calendar" : {
+        "type" : "switch",
+        "default" : true,
+        "description": "Capitalize the formatted date in calendar",
+        "indent": true,
+        "dependency" : "use-custom-format-calendar",
+        "tooltip": "Check this to capitalize the first letter of the formatted date in calendar."
+    },
 
     "section3": {
         "type": "section",
@@ -68,5 +84,13 @@
         "indent": true,
         "dependency" : "use-custom-format-tooltip",
         "tooltip" : "Set your custom format here."
+    },
+    "capitalize-tooltip" : {
+        "type" : "switch",
+        "default" : true,
+        "description": "Capitalize the formatted date in tooltip",
+        "indent": true,
+        "dependency" : "use-custom-format-tooltip",
+        "tooltip": "Check this to capitalize the first letter of the tooltip text."
     }
 }

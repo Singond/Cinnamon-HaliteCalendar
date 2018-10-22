@@ -70,12 +70,15 @@ MyApplet.prototype = {
 
             this.settings.bind("use-custom-format-calendar", "use_custom_format_cal", this._onSettingsChanged);
             this.settings.bind("custom-format-calendar", "custom_format_cal", this._onSettingsChanged);
+            this.settings.bind("capitalize-calendar", "capitalize_cal", this._onSettingsChanged);
 
             this.settings.bind("use-custom-format-tooltip", "use_custom_format_tooltip", this._onSettingsChanged);
             this.settings.bind("custom-format-tooltip", "custom_format_tooltip", this._onSettingsChanged);
+            this.settings.bind("capitalize-tooltip", "capitalize_tooltip", this._onSettingsChanged);
 
             this.settings.bind("use-custom-format-clock", "use_custom_format", this._onSettingsChanged);
             this.settings.bind("custom-format-clock", "custom_format", this._onSettingsChanged);
+            this.settings.bind("capitalize-clock", "capitalize", this._onSettingsChanged);
 
             /* FIXME: Add gobject properties to the WallClock class to allow easier access from
              * its clients, and possibly a separate signal to notify of updates to these properties
@@ -177,7 +180,7 @@ MyApplet.prototype = {
     _updateClockAndDate: function() {
         let label_string = this.clock.get_clock();
 
-        if (!this.use_custom_format) {
+        if (!this.use_custom_format || this.capitalize) {
             label_string = label_string.capitalize();
         }
 
@@ -185,9 +188,15 @@ MyApplet.prototype = {
 
         /* Applet content - st_label_set_text and set_applet_tooltip both compare new to
          * existing strings before proceeding, so no need to check here also */
-        // TODO Add option not to capitalize the string
-        let date = this.clock.get_clock_for_format(this._dateFormatFull).capitalize();
+        let date = this.clock.get_clock_for_format(this._dateFormatFull);
+        if (this.use_custom_format_cal && this.capitalize_cal) {
+            date = date.capitalize();
+        }
+
         let tooltip = this.clock.get_clock_for_format(this._tooltipFormatFull);
+        if (this.use_custom_format_tooltip && this.capitalize_tooltip) {
+            tooltip = tooltip.capitalize();
+        }
 
         this._date.set_text(date);
         this.set_applet_tooltip(tooltip);
