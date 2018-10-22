@@ -71,8 +71,6 @@ MyApplet.prototype = {
             this.settings.bind("use-custom-format-cal", "use_custom_format_cal", this._onSettingsChanged);
             this.settings.bind("custom-format-cal", "custom_format_cal", this._onSettingsChanged);
 
-            //this._dateFormatFull = this.custom_format_cal;
-
             this.settings.bind("use-custom-format-panel", "use_custom_format", this._onSettingsChanged);
             this.settings.bind("custom-format-panel", "custom_format", this._onSettingsChanged);
 
@@ -159,10 +157,6 @@ MyApplet.prototype = {
     _updateDateFormatString: function() {
         if (this.use_custom_format_cal) {
             this._dateFormatFull = this.custom_format_cal;
-            /*if (!this.clock.set_format_string(this.custom_format_cal)) {
-                global.logError("Calendar applet: bad time format string - check your string.");
-                this.clock.set_format_string("~CLOCK FORMAT ERROR~ %l:%M %p");
-            }*/
         } else {
             this._dateFormatFull = _("%A %B %-e, %Y");
         }
