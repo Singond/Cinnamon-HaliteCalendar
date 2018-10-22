@@ -68,14 +68,14 @@ MyApplet.prototype = {
 
             this.menu.addMenuItem(item);
 
-            this.settings.bind("use-custom-format-cal", "use_custom_format_cal", this._onSettingsChanged);
-            this.settings.bind("custom-format-cal", "custom_format_cal", this._onSettingsChanged);
+            this.settings.bind("use-custom-format-calendar", "use_custom_format_cal", this._onSettingsChanged);
+            this.settings.bind("custom-format-calendar", "custom_format_cal", this._onSettingsChanged);
 
             this.settings.bind("use-custom-format-tooltip", "use_custom_format_tooltip", this._onSettingsChanged);
             this.settings.bind("custom-format-tooltip", "custom_format_tooltip", this._onSettingsChanged);
 
-            this.settings.bind("use-custom-format-panel", "use_custom_format", this._onSettingsChanged);
-            this.settings.bind("custom-format-panel", "custom_format", this._onSettingsChanged);
+            this.settings.bind("use-custom-format-clock", "use_custom_format", this._onSettingsChanged);
+            this.settings.bind("custom-format-clock", "custom_format", this._onSettingsChanged);
 
             /* FIXME: Add gobject properties to the WallClock class to allow easier access from
              * its clients, and possibly a separate signal to notify of updates to these properties
