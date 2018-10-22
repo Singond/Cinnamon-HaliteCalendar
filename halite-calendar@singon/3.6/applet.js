@@ -71,7 +71,7 @@ MyApplet.prototype = {
             this.settings.bind("use-custom-format-cal", "use_custom_format_cal", this._onSettingsChanged);
             this.settings.bind("custom-format-cal", "custom_format_cal", this._onSettingsChanged);
 
-            this._dateFormatFull = this.custom_format_cal;
+            //this._dateFormatFull = this.custom_format_cal;
 
             this.settings.bind("use-custom-format-panel", "use_custom_format", this._onSettingsChanged);
             this.settings.bind("custom-format-panel", "custom_format", this._onSettingsChanged);
@@ -112,7 +112,8 @@ MyApplet.prototype = {
     },
 
     _onSettingsChanged: function() {
-        this._updateFormatString();
+        this._updateClockFormatString();
+        this._updateDateFormatString();
         this._updateClockAndDate();
     },
 
@@ -125,7 +126,7 @@ MyApplet.prototype = {
         Util.spawnCommandLine("cinnamon-settings calendar");
     },
 
-    _updateFormatString: function() {
+    _updateClockFormatString: function() {
         let in_vertical_panel = (this.orientation == St.Side.LEFT || this.orientation == St.Side.RIGHT);
 
         if (this.use_custom_format) {
@@ -155,6 +156,18 @@ MyApplet.prototype = {
         }
     },
 
+    _updateDateFormatString: function() {
+        if (this.use_custom_format_cal) {
+            this._dateFormatFull = this.custom_format_cal;
+            /*if (!this.clock.set_format_string(this.custom_format_cal)) {
+                global.logError("Calendar applet: bad time format string - check your string.");
+                this.clock.set_format_string("~CLOCK FORMAT ERROR~ %l:%M %p");
+            }*/
+        } else {
+            this._dateFormatFull = _("%A %B %-e, %Y");
+        }
+    },
+
     _updateClockAndDate: function() {
         let label_string = this.clock.get_clock();
 
@@ -166,6 +179,7 @@ MyApplet.prototype = {
 
         /* Applet content - st_label_set_text and set_applet_tooltip both compare new to
          * existing strings before proceeding, so no need to check here also */
+        // TODO Add option not to capitalize the string
         let dateFormattedFull = this.clock.get_clock_for_format(this._dateFormatFull).capitalize();
 
         this._date.set_text(dateFormattedFull);
