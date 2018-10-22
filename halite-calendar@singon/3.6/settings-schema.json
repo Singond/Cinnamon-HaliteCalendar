@@ -47,7 +47,7 @@
         "default" : "%A %B %e, %H:%M",
         "description" : "Date format",
         "indent": true,
-        "dependency" : "use-custom-date-format",
+        "dependency" : "use-custom-format-cal",
         "tooltip" : "Set your custom date format here."
     }
 }
