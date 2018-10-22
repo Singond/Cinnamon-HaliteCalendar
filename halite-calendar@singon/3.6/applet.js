@@ -71,6 +71,9 @@ MyApplet.prototype = {
             this.settings.bind("use-custom-format-cal", "use_custom_format_cal", this._onSettingsChanged);
             this.settings.bind("custom-format-cal", "custom_format_cal", this._onSettingsChanged);
 
+            this.settings.bind("use-custom-format-tooltip", "use_custom_format_tooltip", this._onSettingsChanged);
+            this.settings.bind("custom-format-tooltip", "custom_format_tooltip", this._onSettingsChanged);
+
             this.settings.bind("use-custom-format-panel", "use_custom_format", this._onSettingsChanged);
             this.settings.bind("custom-format-panel", "custom_format", this._onSettingsChanged);
 
@@ -111,6 +114,7 @@ MyApplet.prototype = {
 
     _onSettingsChanged: function() {
         this._updateClockFormatString();
+        this._updateTooltipFormatString();
         this._updateDateFormatString();
         this._updateClockAndDate();
     },
@@ -162,6 +166,14 @@ MyApplet.prototype = {
         }
     },
 
+    _updateTooltipFormatString: function() {
+        if (this.use_custom_format_tooltip) {
+            this._tooltipFormatFull = this.custom_format_tooltip;
+        } else {
+            this._tooltipFormatFull = _("%A %B %e, %H:%M");
+        }
+    },
+
     _updateClockAndDate: function() {
         let label_string = this.clock.get_clock();
 
@@ -174,10 +186,11 @@ MyApplet.prototype = {
         /* Applet content - st_label_set_text and set_applet_tooltip both compare new to
          * existing strings before proceeding, so no need to check here also */
         // TODO Add option not to capitalize the string
-        let dateFormattedFull = this.clock.get_clock_for_format(this._dateFormatFull).capitalize();
+        let date = this.clock.get_clock_for_format(this._dateFormatFull).capitalize();
+        let tooltip = this.clock.get_clock_for_format(this._tooltipFormatFull);
 
-        this._date.set_text(dateFormattedFull);
-        this.set_applet_tooltip(dateFormattedFull);
+        this._date.set_text(date);
+        this.set_applet_tooltip(tooltip);
     },
 
     on_applet_added_to_panel: function() {

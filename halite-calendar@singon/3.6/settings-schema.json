@@ -49,5 +49,24 @@
         "indent": true,
         "dependency" : "use-custom-format-cal",
         "tooltip" : "Set your custom date format here."
+    },
+
+    "section3": {
+        "type": "section",
+        "description": "Tooltip"
+    },
+    "use-custom-format-tooltip" : {
+        "type" : "switch",
+        "default" : false,
+        "description": "Use a custom date and time format in clock tooltip",
+        "tooltip": "Check this to define a custom format for the time and date in the clock tooltip."
+    },
+    "custom-format-tooltip" : {
+        "type" : "entry",
+        "default" : "%A %B %e, %H:%M",
+        "description" : "Date format",
+        "indent": true,
+        "dependency" : "use-custom-format-tooltip",
+        "tooltip" : "Set your custom format here."
     }
 }
