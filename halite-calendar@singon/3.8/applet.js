@@ -63,10 +63,17 @@ class CinnamonCalendarApplet extends Applet.TextApplet {
 
             this.menu.addMenuItem(item);
 
-            this._dateFormatFull = _("%A %B %-e, %Y");
+            this.settings.bind("use-custom-format-calendar", "use_custom_format_cal", this._onSettingsChanged);
+            this.settings.bind("custom-format-calendar", "custom_format_cal", this._onSettingsChanged);
+            this.settings.bind("capitalize-calendar", "capitalize_cal", this._onSettingsChanged);
 
-            this.settings.bind("use-custom-format", "use_custom_format", this._onSettingsChanged);
-            this.settings.bind("custom-format", "custom_format", this._onSettingsChanged);
+            this.settings.bind("use-custom-format-tooltip", "use_custom_format_tooltip", this._onSettingsChanged);
+            this.settings.bind("custom-format-tooltip", "custom_format_tooltip", this._onSettingsChanged);
+            this.settings.bind("capitalize-tooltip", "capitalize_tooltip", this._onSettingsChanged);
+
+            this.settings.bind("use-custom-format-clock", "use_custom_format", this._onSettingsChanged);
+            this.settings.bind("custom-format-clock", "custom_format", this._onSettingsChanged);
+            this.settings.bind("capitalize-clock", "capitalize", this._onSettingsChanged);
 
             /* FIXME: Add gobject properties to the WallClock class to allow easier access from
              * its clients, and possibly a separate signal to notify of updates to these properties
@@ -104,7 +111,9 @@ class CinnamonCalendarApplet extends Applet.TextApplet {
     }
 
     _onSettingsChanged() {
-        this._updateFormatString();
+        this._updateClockFormatString();
+        this._updateTooltipFormatString();
+        this._updateDateFormatString();
         this._updateClockAndDate();
     }
 
@@ -117,7 +126,7 @@ class CinnamonCalendarApplet extends Applet.TextApplet {
         Util.spawnCommandLine("cinnamon-settings calendar");
     }
 
-    _updateFormatString() {
+    _updateClockFormatString() {
         let in_vertical_panel = (this.orientation == St.Side.LEFT || this.orientation == St.Side.RIGHT);
 
         if (this.use_custom_format) {
@@ -147,10 +156,26 @@ class CinnamonCalendarApplet extends Applet.TextApplet {
         }
     }
 
+    _updateDateFormatString() {
+        if (this.use_custom_format_cal) {
+            this._dateFormatFull = this.custom_format_cal;
+        } else {
+            this._dateFormatFull = _("%A %B %-e, %Y");
+        }
+    }
+
+    _updateTooltipFormatString() {
+        if (this.use_custom_format_tooltip) {
+            this._tooltipFormatFull = this.custom_format_tooltip;
+        } else {
+            this._tooltipFormatFull = _("%A %B %e, %H:%M");
+        }
+    }
+
     _updateClockAndDate() {
         let label_string = this.clock.get_clock();
 
-        if (!this.use_custom_format) {
+        if (!this.use_custom_format || this.capitalize) {
             label_string = label_string.capitalize();
         }
 
@@ -158,10 +183,18 @@ class CinnamonCalendarApplet extends Applet.TextApplet {
 
         /* Applet content - st_label_set_text and set_applet_tooltip both compare new to
          * existing strings before proceeding, so no need to check here also */
-        let dateFormattedFull = this.clock.get_clock_for_format(this._dateFormatFull).capitalize();
+        let date = this.clock.get_clock_for_format(this._dateFormatFull);
+        if (this.use_custom_format_cal && this.capitalize_cal) {
+            date = date.capitalize();
+        }
 
-        this._date.set_text(dateFormattedFull);
-        this.set_applet_tooltip(dateFormattedFull);
+        let tooltip = this.clock.get_clock_for_format(this._tooltipFormatFull);
+        if (this.use_custom_format_tooltip && this.capitalize_tooltip) {
+            tooltip = tooltip.capitalize();
+        }
+
+        this._date.set_text(date);
+        this.set_applet_tooltip(tooltip);
     }
 
     on_applet_added_to_panel() {

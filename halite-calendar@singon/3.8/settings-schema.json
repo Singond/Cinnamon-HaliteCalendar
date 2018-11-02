@@ -1,7 +1,42 @@
 {
     "section1": {
         "type": "section",
-        "description": "Display"
+        "description": "Panel"
+    },
+    "use-custom-format-clock" : {
+        "type" : "switch",
+        "default" : false,
+        "description": "Use a custom time format in panel",
+        "tooltip": "Check this to define a custom format for the time and date in the panel clock."
+    },
+    "custom-format-clock" : {
+        "type" : "entry",
+        "default" : "%A %B %e, %H:%M",
+        "description" : "Time format",
+        "indent": true,
+        "dependency" : "use-custom-format-clock",
+        "tooltip" : "Set your custom format here."
+    },
+    "format-button" : {
+        "type" : "button",
+        "description" : "Show information on date format syntax",
+        "indent": true,
+        "dependency" : "use-custom-format-clock",
+        "callback" : "on_custom_format_button_pressed",
+        "tooltip" : "Click this button to know more about the syntax for date formats."
+    },
+    "capitalize-clock" : {
+        "type" : "switch",
+        "default" : true,
+        "description": "Capitalize the formatted time in panel",
+        "indent": true,
+        "dependency" : "use-custom-format-clock",
+        "tooltip": "Check this to capitalize the first letter of the formatted time in the panel clock."
+    },
+
+    "section2": {
+        "type": "section",
+        "description": "Calendar"
     },
     "show-week-numbers" : {
         "type" : "switch",
@@ -9,26 +44,53 @@
         "description": "Show week numbers in calendar",
         "tooltip": "Check this to show week numbers in the calendar."
     },
-    "use-custom-format" : {
+    "use-custom-format-calendar" : {
         "type" : "switch",
         "default" : false,
-        "description": "Use a custom date format",
-        "tooltip": "Check this to define a custom format for the date in the calendar applet."
+        "description": "Use a custom date format in calendar",
+        "tooltip": "Check this to define a custom format for the time and date in the calendar window."
     },
-    "custom-format" : {
+    "custom-format-calendar" : {
+        "type" : "entry",
+        "default" : "%A %B %-e, %Y",
+        "description" : "Date format",
+        "indent": true,
+        "dependency" : "use-custom-format-calendar",
+        "tooltip" : "Set your custom date format here."
+    },
+    "capitalize-calendar" : {
+        "type" : "switch",
+        "default" : true,
+        "description": "Capitalize the formatted date in calendar",
+        "indent": true,
+        "dependency" : "use-custom-format-calendar",
+        "tooltip": "Check this to capitalize the first letter of the formatted date in calendar."
+    },
+
+    "section3": {
+        "type": "section",
+        "description": "Tooltip"
+    },
+    "use-custom-format-tooltip" : {
+        "type" : "switch",
+        "default" : false,
+        "description": "Use a custom date and time format in clock tooltip",
+        "tooltip": "Check this to define a custom format for the time and date in the clock tooltip."
+    },
+    "custom-format-tooltip" : {
         "type" : "entry",
         "default" : "%A %B %e, %H:%M",
         "description" : "Date format",
         "indent": true,
-        "dependency" : "use-custom-format",
+        "dependency" : "use-custom-format-tooltip",
         "tooltip" : "Set your custom format here."
     },
-    "format-button" : {
-        "type" : "button",
-        "description" : "Show information on date format syntax",
+    "capitalize-tooltip" : {
+        "type" : "switch",
+        "default" : true,
+        "description": "Capitalize the formatted date in tooltip",
         "indent": true,
-        "dependency" : "use-custom-format",
-        "callback" : "on_custom_format_button_pressed",
-        "tooltip" : "Click this button to know more about the syntax for date formats."
+        "dependency" : "use-custom-format-tooltip",
+        "tooltip": "Check this to capitalize the first letter of the tooltip text."
     }
 }
