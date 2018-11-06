@@ -155,6 +155,9 @@ Calendar.prototype = {
         this.desktop_settings = new Gio.Settings({ schema_id: DESKTOP_SCHEMA });
         this.desktop_settings.connect("changed::" + FIRST_WEEKDAY_KEY, Lang.bind(this, this._onSettingsChange));
 
+        this.settings.bindWithObject(this, "use-custom-months-calendar", "use_custom_months_calendar", this._onSettingsChange);
+        this.settings.bindWithObject(this, "custom-months-calendar", "custom_months_calendar", this._onSettingsChange);
+
         // Find the ordering for month/year in the calendar heading
 
         let var_name = 'calendar:MY';
@@ -269,6 +272,17 @@ Calendar.prototype = {
 
         // All the children after this are days, and get removed when we update the calendar
         this._firstDayIndex = this.actor.get_n_children();
+
+        // Override month names in the month selector
+        // (useful for languages where the standalone month name differs from the form used
+        // in full date formats)
+        if (this.use_custom_months_calendar) {
+          let months = this.custom_months_calendar.split(",");
+          this._customMonthNames = [];
+          for (let i = 0; i < months.length; i++) {
+            this._customMonthNames[i] = months[i].trim();
+          }
+        }
     },
 
     _onStyleChange: function(actor, event) {
@@ -339,7 +353,11 @@ Calendar.prototype = {
     _update: function(forceReload) {
         let now = new Date();
 
-        this._monthLabel.text = this._selectedDate.toLocaleFormat('%B').capitalize();
+        if (this.use_custom_months_calendar) {
+          this._monthLabel.text = this._customMonthNames[this._selectedDate.getMonth()];
+        } else {
+          this._monthLabel.text = this._selectedDate.toLocaleFormat('%B').capitalize();
+        }
         this._yearLabel.text = this._selectedDate.toLocaleFormat('%Y');
 
         // Remove everything but the topBox and the weekday labels

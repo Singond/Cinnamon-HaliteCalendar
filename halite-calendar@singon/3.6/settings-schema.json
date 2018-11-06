@@ -66,6 +66,20 @@
         "dependency" : "use-custom-format-calendar",
         "tooltip": "Check this to capitalize the first letter of the formatted date in calendar."
     },
+    "use-custom-months-calendar" : {
+        "type" : "switch",
+        "default" : false,
+        "description": "Use a custom month names in month selector",
+        "tooltip": "Check this to define a custom month names for the calendar month selector."
+    },
+    "custom-months-calendar" : {
+        "type" : "entry",
+        "default" : "January, February, March, April, May, June, July, August, September, October, November, December",
+        "description" : "Custom month names in selector (does not affect main header)",
+        "indent": true,
+        "dependency" : "use-custom-months-calendar",
+        "tooltip" : "Set your custom name months here."
+    },
 
     "section3": {
         "type": "section",
