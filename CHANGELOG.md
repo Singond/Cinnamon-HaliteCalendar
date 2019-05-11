@@ -2,6 +2,11 @@ Changelog
 =========
 This is a changelog for the Halite Calendar applet for Cinnamon.
 
+Unreleased
+----------
+- The CSS class has been changed from `calendar` to `calendar-applet`
+  to avoid naming clash. A `clock` class has been added.
+
 [0.1.0] - 2019-05-11
 --------------------
 

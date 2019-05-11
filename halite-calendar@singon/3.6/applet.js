@@ -47,6 +47,7 @@ MyApplet.prototype = {
         try {
             this.menuManager = new PopupMenu.PopupMenuManager(this);
             this.orientation = orientation;
+            this.actor.add_style_class_name("calendar-applet halite-calendar clock");
 
             this._initContextMenu();
 
