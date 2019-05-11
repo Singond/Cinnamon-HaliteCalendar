@@ -41,6 +41,7 @@ class CinnamonCalendarApplet extends Applet.TextApplet {
         try {
             this.menuManager = new PopupMenu.PopupMenuManager(this);
             this.orientation = orientation;
+            this.actor.add_style_class_name("calendar halite-calendar");
 
             this._initContextMenu();
             this.menu.setCustomStyleClass('calendar-background');
