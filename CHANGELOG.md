@@ -2,8 +2,8 @@ Changelog
 =========
 This is a changelog for the Halite Calendar applet for Cinnamon.
 
-Unreleased
-----------
+[0.1.0] - 2019-05-11
+--------------------
 
 ### Added
 - It is now possible to fully customize the date and time in the panel,
